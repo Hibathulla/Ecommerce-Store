@@ -30,7 +30,7 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = async ({
   params,
 }) => {
   const { data: productData } = await getProducts(params?.productId);
-  console.log(productData, "data");
+  // console.log(productData, "data");
 
   const images = productData?.product?.images?.map((image: string) => {
     return `${process.env.NEXT_PUBLIC_API_BASE_URL}/img/products/${image}`;

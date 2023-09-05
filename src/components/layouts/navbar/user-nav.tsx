@@ -2,13 +2,57 @@
 import { Menu, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { User2, LogOut, ShoppingBag } from "lucide-react";
+import Button from "../../ui/Button";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useGetLoggedUser } from "../../../services/user";
+import Image from "next/image";
 
 export default function UserNav() {
+  let token: string = "";
+  if (typeof window != "undefined") {
+    token = localStorage.getItem("token") as string;
+  }
+  const router = useRouter();
+
+  const loginHandler = () => {
+    router.push("/login");
+  };
+
+  const logoutHandler = () => {
+    window.localStorage.clear();
+    router.push("/login");
+  };
+
+  const { data } = useGetLoggedUser();
+
   return (
     <div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="inline-flex rounded-full w-8 h-8 bg-gray-300 mt-2"></Menu.Button>
+          {token ? (
+            <Menu.Button className="inline-flex relative items-center rounded-full w-10 h-10 mt-2">
+              {data?.user?.photo?.length != 0 ? (
+                <div className="rounded-full">
+                  <Image
+                    fill
+                    className="rounded-full object-cover"
+                    objectFit="cover"
+                    src={`${process.env.NEXT_PUBLIC_API_BASE_URL}/img/users/${data?.user?.photo}`}
+                    alt="profile img"
+                  />
+                </div>
+              ) : (
+                <div className="w-full h-full rounded-full">
+                  <User2 className="w-full h-full" />
+                </div>
+              )}
+            </Menu.Button>
+          ) : (
+            <Button onClick={loginHandler} type="button" className="text-xs">
+              Login
+            </Button>
+          )}
         </div>
         <Transition
           as={Fragment}
@@ -23,7 +67,8 @@ export default function UserNav() {
             <div className="px-1 py-1">
               <Menu.Item>
                 {({ active }) => (
-                  <button
+                  <Link
+                    href="/profile"
                     className={`${
                       active ? "bg-gray-800 text-white" : "text-gray-900"
                     } group flex w-full font-semibold items-center rounded-md px-2 py-2 text-sm`}
@@ -41,12 +86,37 @@ export default function UserNav() {
                       />
                     )} */}
                     Profile
-                  </button>
+                  </Link>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <button
+                  <Link
+                    href="/update-password"
+                    className={`${
+                      active ? "bg-gray-800 text-white" : "text-gray-900"
+                    } group flex w-full font-semibold items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <User2 className="mr-2 h-5 w-5" aria-hidden="true" />
+                    {/* {active ? (
+                      <EditActiveIcon
+                        className="mr-2 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <EditInactiveIcon
+                        className="mr-2 h-5 w-5"
+                        aria-hidden="true"
+                      />
+                    )} */}
+                    Update password
+                  </Link>
+                )}
+              </Menu.Item>
+              <Menu.Item>
+                {({ active }) => (
+                  <Link
+                    href="/orders"
                     className={`${
                       active ? "bg-gray-800 text-white" : "text-gray-900"
                     } group flex w-full font-semibold items-center rounded-md px-2 py-2 text-sm`}
@@ -64,7 +134,7 @@ export default function UserNav() {
                       />
                     )} */}
                     My orders
-                  </button>
+                  </Link>
                 )}
               </Menu.Item>
             </div>
@@ -72,6 +142,7 @@ export default function UserNav() {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={logoutHandler}
                     className={`${
                       active ? "bg-gray-800 text-white" : "text-gray-900"
                     } group flex w-full font-semibold items-center rounded-md px-2 py-2 text-sm`}

@@ -21,8 +21,19 @@ const postRegister = (val: loginType) => {
   return axiosInstance.post(routes.register, val);
 };
 
+const postPasswordUpdate = (val: {
+  currentPassword: string;
+  password: string;
+}) => {
+  return axiosInstance.post(routes.updatePassword, val);
+};
+
 export const useLogin = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get("returnUrl");
+  console.log(returnUrl, "return");
+
   return useMutation(postLogin, {
     onSuccess: (res) => {
       if (res.data.data.user.role === "admin") {
@@ -33,7 +44,11 @@ export const useLogin = () => {
       const token = res.data.token;
       localStorage.setItem("token", token);
       toast.success(res?.data?.message);
+      if (returnUrl) {
+        return router.push(returnUrl);
+      }
       router.push("/");
+      //
     },
   });
 };
@@ -48,6 +63,16 @@ export const useRegister = () => {
       localStorage.setItem("token", token);
       toast.success(res?.data?.message);
       router.push("/");
+    },
+  });
+};
+
+export const useUpdatePassword = () => {
+  return useMutation(postPasswordUpdate, {
+    onSuccess: (res) => {
+      console.log(res, "res");
+
+      toast.success(res?.data?.message);
     },
   });
 };

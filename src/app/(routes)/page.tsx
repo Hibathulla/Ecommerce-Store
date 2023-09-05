@@ -25,7 +25,7 @@ const HomePage = async () => {
   const { data: settingsData } = await getSettings();
   const { data: productsData } = await getProducts();
 
-  console.log(productsData, "product");
+  // console.log(productsData, "product");
 
   return (
     <Container>

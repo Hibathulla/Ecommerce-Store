@@ -3,6 +3,7 @@ export const routes = {
   register: "/api/users/register",
   loggedUser: "/api/users/me",
   updateLoggedUser: "/api/users/updateMe",
+  updatePassword: "/api/users/updatePassword",
   users: "/api/users",
   category: "/api/category",
   settings: "/api/settings",
