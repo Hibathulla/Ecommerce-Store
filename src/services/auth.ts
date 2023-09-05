@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "../../axios-config";
 import { routes } from "./routes";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 interface loginType {
@@ -26,27 +26,28 @@ export const useLogin = () => {
   return useMutation(postLogin, {
     onSuccess: (res) => {
       if (res.data.data.user.role === "admin") {
-        toast.error("Please login as user");
+        toast.error("Cannot login as admin");
         return;
       }
-      console.log(res, "res");
+      console.log(res?.data?.message, "res");
       const token = res.data.token;
       localStorage.setItem("token", token);
-      toast.success(res.data.message);
-      //   router.push("/dashboard");
+      toast.success(res?.data?.message);
+      router.push("/");
     },
   });
 };
 
 export const useRegister = () => {
   const router = useRouter();
+
   return useMutation(postRegister, {
     onSuccess: (res) => {
       console.log(res, "res");
       const token = res.data.token;
       localStorage.setItem("token", token);
-      toast.success(res.data.message);
-      //   router.push("/dashboard");
+      toast.success(res?.data?.message);
+      router.push("/");
     },
   });
 };

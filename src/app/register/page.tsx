@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "@/components/login";
+import Register from "@/components/register";
 
 const getSettings = async () => {
   const res = await fetch(
@@ -9,12 +9,9 @@ const getSettings = async () => {
   return (await res).json();
 };
 
-const LoginPage = async () => {
+const RegisterPage = async () => {
   const { data } = await getSettings();
-
-  console.log(data?.settings?.[0], "data");
-
-  return <Login details={data?.settings?.[0]} />;
+  return <Register details={data?.settings?.[0]} />;
 };
 
-export default LoginPage;
+export default RegisterPage;

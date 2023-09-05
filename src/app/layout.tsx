@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import Navbar from "@/components/layouts/navbar/Navbar";
+import Providers from "./providers";
+import { Toaster } from "react-hot-toast";
 
 const urbanFont = Urbanist({
   subsets: ["latin"],
@@ -22,9 +24,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={urbanFont.className}>
-        {/* <Navbar /> */}
-        {children}
-        {/* <Footer /> */}
+        <Toaster position="top-right" reverseOrder={false} />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

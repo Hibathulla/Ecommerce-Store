@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 import Link from "next/link";
 
 interface Props {
@@ -14,9 +14,7 @@ interface Props {
   };
 }
 
-const Login: React.FC<Props> = ({ details }) => {
-  console.log(details, "store");
-
+const Register: React.FC<Props> = ({ details }) => {
   return (
     <div className="w-full h-screen flex flex-col lg:flex-row items-start">
       <div className="hidden lg:flex relative w-1/2 h-full flex-col">
@@ -41,15 +39,15 @@ const Login: React.FC<Props> = ({ details }) => {
           {details?.storeName}
         </h1>
 
-        <LoginForm />
+        <RegisterForm />
         <div className="w-full flex items-center justify-center">
           <p className="text-sm font-normal text-[#060606]">
-            Dont have an account?{" "}
+            Have an account?{" "}
             <Link
-              href={"/register"}
+              href="/login"
               className="font-semibold underline underline-offset-2 cursor-pointer"
             >
-              Sign up for free
+              Log in here
             </Link>
           </p>
         </div>
@@ -58,4 +56,4 @@ const Login: React.FC<Props> = ({ details }) => {
   );
 };
 
-export default Login;
+export default Register;

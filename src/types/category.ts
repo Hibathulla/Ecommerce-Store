@@ -1,5 +1,6 @@
-export interface CategoryProps {
-  id: string;
-  name: string;
-  billboard: string;
+export interface categoryType {
+  createdAt: Date;
+  category: string;
+  billboard?: string;
+  billboardLabel?: string;
 }
