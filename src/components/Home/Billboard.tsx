@@ -6,7 +6,10 @@ import { SettingsType } from "../../types/settings";
 
 interface billboardProps {
   className?: string;
-  details: SettingsType;
+  details: {
+    billboard: string;
+    billboardLabel: string;
+  };
 }
 
 const Billboard: React.FC<billboardProps> = ({ className, details }) => {
