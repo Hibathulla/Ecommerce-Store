@@ -1,6 +1,7 @@
 import ProductList from "@/components/Home/ProductList";
 import ProductGallery from "@/components/ProductDetail/product-gallery";
 import ProductInfo from "@/components/ProductDetail/product-info";
+import ProductComments from "../../../../components/ProductDetail/product-comments";
 
 interface ProductDetailPageProps {
   params: {
@@ -44,6 +45,9 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = async ({
         </div>
       </div>
       <hr className="my-10" />
+      <div className="px-8">
+        <ProductComments />
+      </div>
       {/* <ProductList title="Related products" /> */}
     </div>
   );
