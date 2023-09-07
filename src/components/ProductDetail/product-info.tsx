@@ -1,10 +1,12 @@
+"use client";
 import { formatter } from "@/lib/formatter";
-import React from "react";
+import React, { MouseEventHandler, useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import SizesRadio from "./size-radio";
 import Button from "../ui/Button";
 import { ShoppingCart } from "lucide-react";
 import { productType } from "../../types/product";
+import useCart from "../../hooks/use-cart";
 
 const sizes = [
   { id: "31e", value: "sm", name: "Small" },
@@ -17,8 +19,19 @@ interface Props {
 }
 
 const ProductInfo: React.FC<Props> = ({ product }) => {
+  const [size, selectSize] = useState("");
+  const [error, setError] = useState(false);
+  const cart = useCart();
   const price = product?.price;
   const discountPrice = product?.discountPrice;
+
+  const addToCartHandler: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    if (size?.length === 0) {
+      return setError(true);
+    }
+    cart.addItem({ ...product, size });
+  };
 
   return (
     <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
@@ -52,10 +65,18 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
       </div>
       <div className="flex items-center gap-x-4">
         <h3 className="font-semibold text-black">Size:</h3>
-        <SizesRadio sizes={product?.size} />
+        <SizesRadio sizes={product?.size} size={size} setSize={selectSize} />
       </div>
+      {error && (
+        <div className="text-red-400 mt-1 text-left w-full font-semibold">
+          {"Please select a size"}
+        </div>
+      )}
       <div className="mt-10 flex items-center gap-x-3">
-        <Button className="flex items-center gap-x-2">
+        <Button
+          onClick={addToCartHandler}
+          className="flex items-center gap-x-2"
+        >
           Add to cart <ShoppingCart />
         </Button>
       </div>

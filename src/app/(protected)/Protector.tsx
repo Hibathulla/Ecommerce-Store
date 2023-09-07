@@ -6,7 +6,10 @@ import LoginForm from "../../components/login/LoginForm";
 const Protector = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const protectedPaths = useMemo(() => ["/profile"], []);
+  const protectedPaths = useMemo(
+    () => ["/profile", "update-password", "cart"],
+    []
+  );
   let token: string = "";
   if (typeof window != "undefined") {
     token = localStorage.getItem("token") as string;

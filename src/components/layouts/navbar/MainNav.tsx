@@ -3,10 +3,10 @@ import React from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
-import { CategoryProps } from "@/types/category";
+import { categoryType } from "@/types/category";
 
 interface MainNavProps {
-  data: CategoryProps[];
+  data: categoryType[];
 }
 
 const MainNav: React.FC<MainNavProps> = ({ data }) => {

@@ -6,9 +6,27 @@ import NavbarActions from "./navbar-actions";
 import UserNav from "./user-nav";
 
 const data = [
-  { id: "31241", name: "Shirts", billboard: "" },
-  { id: "54254", name: "Shoes", billboard: "" },
-  { id: "42314", name: "Pants", billboard: "" },
+  {
+    id: "31241",
+    name: "Shirts",
+    billboard: "",
+    createdAt: new Date(),
+    category: "",
+  },
+  {
+    id: "54254",
+    name: "Shoes",
+    billboard: "",
+    createdAt: new Date(),
+    category: "",
+  },
+  {
+    id: "42314",
+    name: "Pants",
+    billboard: "",
+    createdAt: new Date(),
+    category: "",
+  },
 ];
 
 const Navbar = () => {

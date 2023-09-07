@@ -25,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={urbanFont.className}>
-        <ModalProvider />
         <Toaster position="top-right" reverseOrder={false} />
-        <Providers>{children}</Providers>
+        <Providers>
+          <ModalProvider />
+          {children}
+        </Providers>
       </body>
     </html>
   );

@@ -10,7 +10,7 @@ export interface productType {
   slug: string;
   images: string[];
   category: categoryType;
-  size: sizeType[];
+  size: sizeType[] | string;
   isFeatured?: boolean;
   outOfStock?: boolean;
   description?: string;
