@@ -28,7 +28,10 @@ const CouponForm = () => {
           setSuccess(res?.message);
           setErrMessage("");
           if (cart.coupon === 0) {
-            cart?.setTotalPrice(res?.data?.doc?.value);
+            cart?.setTotalPrice(
+              res?.data?.doc?.value,
+              res?.data?.doc?.discountType
+            );
           } else {
             setErrMessage("Coupon already applied");
             setSuccess("");

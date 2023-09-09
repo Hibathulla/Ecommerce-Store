@@ -10,7 +10,7 @@ interface CartStore {
   addItem: (data: productType) => void;
   totalPrice: number;
   coupon: number;
-  setTotalPrice: (price: number) => void;
+  setTotalPrice: (price: number, discountType: string) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
 }
@@ -49,13 +49,19 @@ const useCart = create(
         set({ items: [...filteredItem], totalPrice: total });
         toast.success("Item removed from cart.");
       },
-      setTotalPrice: (price: number) => {
+      setTotalPrice: (price: number, discountPrice: string) => {
         const currentPrice = get().totalPrice;
         const currentItems = get().items;
 
-        const newPrice = currentPrice - price;
+        let newPrice: number;
+        if (discountPrice === "flat") {
+          newPrice = currentPrice - price;
+        } else {
+          const discount = currentPrice * (price / 100);
+          newPrice = currentPrice - discount;
+        }
 
-        set({ items: [...get().items], totalPrice: newPrice, coupon: price });
+        set({ items: [...get().items], totalPrice: newPrice!, coupon: price });
       },
       removeAll: () => set({ items: [] }),
     }),

@@ -61,7 +61,7 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
         <h3 className="font-semibold text-black">Size:</h3>
         <SizesRadio sizes={product?.size} size={size} setSize={selectSize} />
       </div>
-      {error && (
+      {error && size?.length === 0 && (
         <div className="text-red-400 mt-1 text-left w-full font-semibold">
           {"Please select a size"}
         </div>
