@@ -1,25 +1,15 @@
 "use client";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useRegister } from "../../services/auth";
-import { Icons } from "../../utils/Icons";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  DeleteIcon,
-  Edit,
-  Edit2,
-  Edit3,
-  Trash2,
-  User2,
-  UserCircle2,
-} from "lucide-react";
-import { useDeleteImage, useUploadImage } from "../../services/image";
-import { Fragment, useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import { Edit, Trash2, User2 } from "lucide-react";
 import Image from "next/image";
-import Button from "../ui/Button";
-import { userType } from "../../types/user";
+import { Fragment, useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import * as z from "zod";
+import { useDeleteImage, useUploadImage } from "../../services/image";
 import { useUpdateLoggedUser } from "../../services/user";
+import { userType } from "../../types/user";
+import { Icons } from "../../utils/Icons";
 
 type Inputs = {
   name: string;

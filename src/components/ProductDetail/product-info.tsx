@@ -8,12 +8,6 @@ import { ShoppingCart } from "lucide-react";
 import { productType } from "../../types/product";
 import useCart from "../../hooks/use-cart";
 
-const sizes = [
-  { id: "31e", value: "sm", name: "Small" },
-  { id: "331", value: "lg", name: "Large" },
-  { id: "432", value: "md", name: "Medium" },
-];
-
 interface Props {
   product: productType;
 }

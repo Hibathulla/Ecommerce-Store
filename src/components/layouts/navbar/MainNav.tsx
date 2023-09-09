@@ -4,18 +4,19 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { categoryType } from "@/types/category";
+import { useGetAllCategroy } from "../../../services/category";
 
-interface MainNavProps {
-  data: categoryType[];
-}
-
-const MainNav: React.FC<MainNavProps> = ({ data }) => {
+const MainNav = () => {
   const pathname = usePathname();
 
-  const routes = data?.map((route: any) => {
+  const { data } = useGetAllCategroy();
+
+  console.log(data, "data");
+
+  const routes = data?.data?.category?.map((route: any) => {
     return {
       href: `/category/${route.id}`,
-      label: route?.name,
+      label: route?.category,
       active: pathname === `/category/${route?.id}`,
     };
   });

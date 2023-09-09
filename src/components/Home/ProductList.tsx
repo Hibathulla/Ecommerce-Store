@@ -9,15 +9,16 @@ interface Props {
 }
 
 const ProductList: React.FC<Props> = ({ title, products }) => {
-  console.log(products, "product");
-
   return (
     <div className="space-y-4 ">
       <h3 className="font-bold text-3xl">{title}</h3>
       {/* {data?.length === 0 && <NoResults />} */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products?.map((product) => {
-          return <ProductCard key={product?.id} product={product} />;
+          if (!product?.outOfStock) {
+            return <ProductCard key={product?.id} product={product} />;
+          }
+          return null;
         })}
 
         {/* <ProductCard />
