@@ -1,25 +1,23 @@
 "use client";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
-import LoginForm from "../../components/login/LoginForm";
+import { useAuth } from "../../hooks/use-auth";
 
 const Protector = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const { loggedIn } = useAuth();
   const protectedPaths = useMemo(
-    () => ["/profile", "update-password", "cart"],
+    () => ["/profile", "/update-password", "/cart"],
     []
   );
-  let token: string = "";
-  if (typeof window != "undefined") {
-    token = localStorage.getItem("token") as string;
-  }
+  console.log(protectedPaths.includes(pathname), "test");
 
   useEffect(() => {
-    if (!token && protectedPaths.includes(pathname)) {
+    if (!loggedIn) {
       router.replace(`/login?returnUrl=${pathname}`);
     }
-  }, [pathname, protectedPaths, router, token]);
+  }, [loggedIn, pathname, router]);
 
   return <div>{children}</div>;
 };

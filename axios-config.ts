@@ -4,22 +4,22 @@ export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // our API base URL
 });
 // Add a request interceptor
-axiosInstance.interceptors.request.use(
-  (config) => {
-    console.log(config, "config");
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     console.log(config, "config");
 
-    const token = localStorage.getItem("token");
-    if (token) {
-      config.headers["Authorization"] = "Bearer " + token;
-      config.headers["Accept"] = "application/json";
-    }
-    // config.headers['Content-Type'] = 'application/json';
-    return config;
-  },
-  (error) => {
-    Promise.reject(error);
-  }
-);
+//     const token = localStorage.getItem("token");
+//     if (token) {
+//       config.headers["Authorization"] = "Bearer " + token;
+//       config.headers["Accept"] = "application/json";
+//     }
+//     // config.headers['Content-Type'] = 'application/json';
+//     return config;
+//   },
+//   (error) => {
+//     Promise.reject(error);
+//   }
+// );
 
 axiosInstance.interceptors.response.use(
   (response) => {

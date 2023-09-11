@@ -3,6 +3,7 @@ import { axiosInstance } from "../../axios-config";
 import { routes } from "./routes";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { useAuth } from "../hooks/use-auth";
 
 interface loginType {
   email: string;
@@ -32,6 +33,8 @@ export const useLogin = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const returnUrl = searchParams.get("returnUrl");
+  const { setAuth } = useAuth();
+
   console.log(returnUrl, "return");
 
   return useMutation(postLogin, {
@@ -42,25 +45,35 @@ export const useLogin = () => {
       }
       console.log(res?.data?.message, "res");
       const token = res.data.token;
-      localStorage.setItem("token", token);
+
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
+      axiosInstance.defaults.headers.common["Accept"] = `application/json`;
+      setAuth(token);
       toast.success(res?.data?.message);
       if (returnUrl) {
         return router.push(returnUrl);
       }
       router.push("/");
-      //
     },
   });
 };
 
 export const useRegister = () => {
   const router = useRouter();
+  const { setAuth } = useAuth();
 
   return useMutation(postRegister, {
     onSuccess: (res) => {
       console.log(res, "res");
       const token = res.data.token;
-      localStorage.setItem("token", token);
+      axiosInstance.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${token}`;
+      axiosInstance.defaults.headers.common["Accept"] = `application/json`;
+      setAuth(token);
+
       toast.success(res?.data?.message);
       router.push("/");
     },

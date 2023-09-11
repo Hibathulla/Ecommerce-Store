@@ -6,9 +6,10 @@ import {
 } from "@tanstack/react-query";
 import { routes } from "./routes";
 import { axiosInstance } from "../../axios-config";
-import { userType } from "../types/user";
+import { UserApi, userType } from "../types/user";
+import { useAuth } from "../hooks/use-auth";
 
-const getLoggedUser = async () => {
+const getLoggedUser = async (): Promise<UserApi["data"]> => {
   const { data } = await axiosInstance.get(routes?.loggedUser);
   return data?.data;
 };
@@ -19,12 +20,9 @@ const updateLoggedUser = async (val: userType) => {
 };
 
 export const useGetLoggedUser = () => {
-  let token: string = "";
-  if (typeof window != undefined) {
-    token = localStorage.getItem("token") as string;
-  }
+  const { loggedIn } = useAuth();
   return useQuery([routes?.loggedUser], getLoggedUser, {
-    enabled: !!token,
+    enabled: !!loggedIn,
   });
 };
 

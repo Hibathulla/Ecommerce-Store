@@ -7,12 +7,10 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useGetLoggedUser } from "../../../services/user";
 import Image from "next/image";
+import { useAuth } from "../../../hooks/use-auth";
 
 export default function UserNav() {
-  let token: string = "";
-  if (typeof window != "undefined") {
-    token = localStorage.getItem("token") as string;
-  }
+  const { loggedIn, logout } = useAuth();
   const router = useRouter();
 
   const loginHandler = () => {
@@ -21,6 +19,7 @@ export default function UserNav() {
 
   const logoutHandler = () => {
     window.localStorage.clear();
+    logout();
     router.push("/login");
   };
 
@@ -30,7 +29,7 @@ export default function UserNav() {
     <div>
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          {token ? (
+          {loggedIn ? (
             <Menu.Button className="inline-flex relative items-center rounded-full w-10 h-10 mt-2">
               {data?.user?.photo?.length != 0 ? (
                 <div className="rounded-full">

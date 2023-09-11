@@ -13,4 +13,5 @@ export const routes = {
   size: "/api/size",
   coupon: "/api/coupon",
   product: "/api/product",
+  payment: "/api/payment",
 };

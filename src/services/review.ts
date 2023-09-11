@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { routes } from "./routes";
 import { axiosInstance } from "../../axios-config";
 import { reviewType } from "../types/review";
+import { useAuth } from "../hooks/use-auth";
 
 interface reviewPost {
   rating: number;
@@ -28,12 +29,9 @@ const postReview = (val: reviewPost) => {
 // };
 
 export const useGetProductReview = (productId: string) => {
-  let token: string = "";
-  if (typeof window != undefined) {
-    token = localStorage.getItem("token") as string;
-  }
+  const { loggedIn } = useAuth();
   return useQuery(["review"], () => getReview(productId), {
-    enabled: !!token && !!productId,
+    enabled: !!loggedIn && !!productId,
   });
 };
 

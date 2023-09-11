@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import Container from "../../ui/Container";
 import Link from "next/link";
 import MainNav from "./MainNav";
 import NavbarActions from "./navbar-actions";
 import UserNav from "./user-nav";
+import { useSettings } from "../../../services/settings";
 
 const data = [
   {
@@ -30,6 +32,9 @@ const data = [
 ];
 
 const Navbar = () => {
+  const { data } = useSettings();
+  console.log(data, "navbar");
+
   return (
     <div className="border-b">
       <Container>
