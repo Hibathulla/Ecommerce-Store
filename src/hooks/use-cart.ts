@@ -63,7 +63,7 @@ const useCart = create(
 
         set({ items: [...get().items], totalPrice: newPrice!, coupon: price });
       },
-      removeAll: () => set({ items: [] }),
+      removeAll: () => set({ items: [], totalPrice: 0, coupon: 0 }),
     }),
     {
       name: "cart-storage",

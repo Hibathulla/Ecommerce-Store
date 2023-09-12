@@ -14,4 +14,5 @@ export const routes = {
   coupon: "/api/coupon",
   product: "/api/product",
   payment: "/api/payment",
+  order: "/api/order",
 };

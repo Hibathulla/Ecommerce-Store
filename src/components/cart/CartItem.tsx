@@ -20,7 +20,7 @@ const CartItem: React.FC<Props> = ({ data }) => {
         <Image
           fill
           src={image}
-          alt={data?.name}
+          alt={data?.name || "product"}
           className="object-cover object-center"
         />
       </div>

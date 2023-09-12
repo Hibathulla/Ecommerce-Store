@@ -7,6 +7,7 @@ import CouponForm from "./CouponForm";
 import Script from "next/script";
 import { useHandlePayment, useVerifyPayment } from "../../services/payment";
 import { useGetLoggedUser } from "../../services/user";
+import { useRouter } from "next/navigation";
 
 const CartSummary = () => {
   const cart = useCart();
@@ -14,8 +15,9 @@ const CartSummary = () => {
   const { mutate: createOrder } = useHandlePayment();
   const { mutate: verifyOrder } = useVerifyPayment();
 
+  const router = useRouter();
   const { data } = useGetLoggedUser();
-  console.log(cart.items, "data");
+  console.log(cart.items?.length === 0, "data");
 
   const paymentHandler = () => {
     const productIds = cart.items?.map((item) => {
@@ -26,6 +28,7 @@ const CartSummary = () => {
         images: item?.images,
         description: item?.description,
         price: item?.price,
+        name: item?.name,
       };
     });
 
@@ -48,16 +51,25 @@ const CartSummary = () => {
               alert(response.razorpay_order_id);
               alert(response.razorpay_signature);
 
-              verifyOrder({
-                paymentId: response.razorpay_payment_id,
-                orderId: response.razorpay_order_id,
-                razorpaySignature: response.razorpay_signature,
-                status: "success",
-                isPaid: true,
-                discount: cart.coupon,
-                total: cart.totalPrice,
-                products: productIds,
-              });
+              verifyOrder(
+                {
+                  paymentId: response.razorpay_payment_id,
+                  orderId: response.razorpay_order_id,
+                  razorpaySignature: response.razorpay_signature,
+                  status: "success",
+                  isPaid: true,
+                  discount: cart.coupon,
+                  total: cart.totalPrice,
+                  products: productIds,
+                },
+                {
+                  onSuccess: (res) => {
+                    console.log(res.data.orderData, "ressss");
+                    cart.removeAll();
+                    router.push(`/orders/${res.data.orderData.id}`);
+                  },
+                }
+              );
             },
             prefill: {
               name: data?.user?.name,
@@ -103,7 +115,11 @@ const CartSummary = () => {
         <div className="mt-5">
           <CouponForm />
         </div>
-        <Button onClick={paymentHandler} className="w-full mt-6">
+        <Button
+          disabled={cart.items?.length === 0}
+          onClick={paymentHandler}
+          className="w-full mt-6 disabled:cursor-not-allowed"
+        >
           Checkout
         </Button>
       </div>
