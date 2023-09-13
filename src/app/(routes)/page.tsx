@@ -1,7 +1,13 @@
 import Billboard from "@/components/Home/Billboard";
 import ProductList from "@/components/Home/ProductList";
 import Container from "@/components/ui/Container";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Store",
+  description: "Store",
+};
 
 const getSettings = async () => {
   const res = await fetch(

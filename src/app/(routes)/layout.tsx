@@ -4,11 +4,6 @@ import type { Metadata } from "next";
 import Navbar from "@/components/layouts/navbar/Navbar";
 import { Fragment, useEffect, useState } from "react";
 
-export const metadata: Metadata = {
-  title: "Store",
-  description: "Store",
-};
-
 export default function RootLayout({
   children,
 }: {
