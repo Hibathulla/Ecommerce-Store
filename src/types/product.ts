@@ -1,5 +1,5 @@
 import { categoryType } from "./category";
-import { sizeType } from "./size";
+import { SizeType } from "./size";
 
 export interface ProductProps {
   status: string;
@@ -16,7 +16,7 @@ export interface productType {
   slug: string;
   images: string[];
   category: categoryType;
-  size: sizeType[] | string;
+  size: SizeType[] | string;
   isFeatured?: boolean;
   outOfStock?: boolean;
   description?: string;
