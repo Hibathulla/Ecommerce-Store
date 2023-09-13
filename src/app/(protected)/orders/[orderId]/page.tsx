@@ -3,6 +3,9 @@ import React from "react";
 import { useGetSingleOrder } from "../../../../services/order";
 import { formatter } from "../../../../lib/formatter";
 import CartItem from "../../../../components/cart/CartItem";
+import OrderItem from "../../../../components/orders/OrderItem";
+import { ChevronLeft } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   params: {
@@ -12,14 +15,21 @@ interface Props {
 
 const SingleOrderPage: React.FC<Props> = ({ params }) => {
   const { data } = useGetSingleOrder(params?.orderId);
+  const router = useRouter();
 
   console.log(data, "data");
 
   return (
-    <div className="w-full h-full lg:h-screen flex justify-center items-center py-10">
+    <div className="w-full h-full flex justify-center items-center py-10">
       <div className="w-[90%] lg:w-1/2 h-full mx-auto bg-[#f5f5f5] border-2 rounded-xl border-gray-300 flex flex-col py-14 px-10 justify-start items-center lg:max-w-[500px]">
-        <div className="mb-8">
-          <h1 className="text-2xl text-[#060606] font-semibold self-start">
+        <div className="mb-8 flex items-center w-full">
+          <button
+            onClick={() => router.back()}
+            className="mr-auto hover:bg-gray-500/20 rounded-full w-9 h-9 flex items-center justify-center"
+          >
+            <ChevronLeft size={25} />
+          </button>
+          <h1 className="text-2xl mr-auto text-[#060606] font-semibold self-start">
             Order Successfull <span className="text-green-500">✔</span>
           </h1>
         </div>
@@ -58,9 +68,9 @@ const SingleOrderPage: React.FC<Props> = ({ params }) => {
           {/* <div className="border-2 rounded-xl border-gray-300">test</div>
           <div className="border-2 rounded-xl border-gray-300">test</div> */}
         </div>
-        <div className="w-full bg-red-500">
+        <div className="w-full h-[20rem] overflow-y-auto divide divide-y">
           {data?.data?.order?.products?.map((product: any) => {
-            return <CartItem key={product?.id} data={product} />;
+            return <OrderItem key={product?.id} data={product} />;
           })}
         </div>
       </div>

@@ -1,7 +1,8 @@
+"use client";
 import Footer from "@/components/layouts/Footer";
 import type { Metadata } from "next";
 import Navbar from "@/components/layouts/navbar/Navbar";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 
 export const metadata: Metadata = {
   title: "Store",
@@ -13,6 +14,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return <></>;
   return (
     <Fragment>
       <Navbar />

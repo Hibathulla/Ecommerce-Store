@@ -1,25 +1,25 @@
 import axios from "axios";
+import { useAuth } from "./src/hooks/use-auth";
+import { useCurrentAccessToken } from "./src/utils/getAccessToken";
 // import {useRouter} from 'next/navigation'
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // our API base URL
 });
 // Add a request interceptor
-// axiosInstance.interceptors.request.use(
-//   (config) => {
-//     console.log(config, "config");
-
-//     const token = localStorage.getItem("token");
-//     if (token) {
-//       config.headers["Authorization"] = "Bearer " + token;
-//       config.headers["Accept"] = "application/json";
-//     }
-//     // config.headers['Content-Type'] = 'application/json';
-//     return config;
-//   },
-//   (error) => {
-//     Promise.reject(error);
-//   }
-// );
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("access-token");
+    if (token) {
+      config.headers["Authorization"] = "Bearer " + token;
+      config.headers["Accept"] = "application/json";
+    }
+    config.headers["Content-Type"] = "application/json";
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
 
 axiosInstance.interceptors.response.use(
   (response) => {
@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     if (
-      error.response.status === 401
+      error?.response?.status === 401
       // && originalRequest.url === 'http://127.0.0.1:3000/v1/auth/token'
     ) {
       window.location.replace("/login");

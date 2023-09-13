@@ -3,7 +3,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 interface AuthProps {
   loggedIn: boolean;
-  token: string;
+  token: string | null;
   setAuth: (token: string) => void;
   logout: () => void;
 }
@@ -12,9 +12,16 @@ export const useAuth = create<AuthProps>()(
   persist(
     (set) => ({
       loggedIn: false,
-      token: "",
-      setAuth: (token: string) => set((state) => ({ loggedIn: true, token })),
-      logout: () => set((state) => ({ loggedIn: false, token: "" })),
+      token: null,
+      setAuth: (token: string) =>
+        set((state) => {
+          localStorage.setItem("access-token", token);
+          return { loggedIn: true, token };
+        }),
+      logout: () =>
+        set((state) => {
+          return { loggedIn: false, token: "" };
+        }),
     }),
 
     {

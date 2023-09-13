@@ -46,10 +46,6 @@ export const useLogin = () => {
       console.log(res?.data?.message, "res");
       const token = res.data.token;
 
-      axiosInstance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
-      axiosInstance.defaults.headers.common["Accept"] = `application/json`;
       setAuth(token);
       toast.success(res?.data?.message);
       if (returnUrl) {
@@ -68,10 +64,10 @@ export const useRegister = () => {
     onSuccess: (res) => {
       console.log(res, "res");
       const token = res.data.token;
-      axiosInstance.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${token}`;
-      axiosInstance.defaults.headers.common["Accept"] = `application/json`;
+      // axiosInstance.defaults.headers.common[
+      //   "Authorization"
+      // ] = `Bearer ${token}`;
+      // axiosInstance.defaults.headers.common["Accept"] = `application/json`;
       setAuth(token);
 
       toast.success(res?.data?.message);
