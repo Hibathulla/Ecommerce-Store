@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { cn } from "@/lib/cn";
-import { sizeType } from "../../types/size";
+import { SizeType } from "../../types/size";
 
 interface sizeProps {
-  sizes: sizeType[] | string;
+  sizes: SizeType[] | string;
   size: string;
   setSize: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -15,7 +15,7 @@ const SizesRadio: React.FC<sizeProps> = ({ sizes, size, setSize }) => {
     <RadioGroup value={size} onChange={setSize}>
       {/* <RadioGroup.Label>Plan</RadioGroup.Label> */}
       <div className="flex group items-center border divide-x-2 p-2 divide rounded-md">
-        {(sizes as sizeType[])?.map((size) => {
+        {(sizes as SizeType[])?.map((size) => {
           return (
             <RadioGroup.Option key={size?.id} value={size?.name}>
               {({ checked }) => (
