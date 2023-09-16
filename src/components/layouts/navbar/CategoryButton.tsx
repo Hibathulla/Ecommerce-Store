@@ -35,15 +35,9 @@ const CategoryButton: React.FC<{
     <div className="ml-3">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          {loggedIn ? (
-            <Menu.Button className="inline-flex border font-semibold px-4 py-1 relative items-center rounded-full">
-              Category
-            </Menu.Button>
-          ) : (
-            <Button onClick={loginHandler} type="button" className="text-xs">
-              Login
-            </Button>
-          )}
+          <Menu.Button className="inline-flex border font-semibold px-4 py-1 relative items-center rounded-full">
+            Category
+          </Menu.Button>
         </div>
         <Transition
           as={Fragment}
