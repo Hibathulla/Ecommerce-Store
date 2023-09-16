@@ -13,7 +13,8 @@ const getCategory = async (
   categoryId: string
 ): Promise<SingleCategoryProps> => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/category/${categoryId}`
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/category/${categoryId}`,
+    { cache: "no-cache" }
   );
 
   return res.json();
@@ -41,6 +42,7 @@ const CategoryPage: React.FC<{ params: { categoryId: string } }> = async ({
     <div className="mx-auto bg-white">
       <div className="">
         <Billboard
+          type={"category"}
           className="md:aspect-[2.4/.7]"
           details={category.data.category}
         />

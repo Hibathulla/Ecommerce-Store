@@ -31,12 +31,14 @@ const CategoryButton: React.FC<{
     router.push("/login");
   };
 
+  const isActive = routes?.find((el) => el.active === true);
+
   return (
     <div className="ml-3">
       <Menu as="div" className="relative inline-block text-left">
         <div>
           <Menu.Button className="inline-flex border font-semibold px-4 py-1 relative items-center rounded-full">
-            Category
+            {isActive ? isActive.label : "Category"}
           </Menu.Button>
         </div>
         <Transition

@@ -6,20 +6,23 @@ import { SettingsType } from "../../types/settings";
 
 interface billboardProps {
   className?: string;
+  type?: string;
   details: {
     billboard: string;
     billboardLabel: string;
   };
 }
 
-const Billboard: React.FC<billboardProps> = ({ className, details }) => {
-  // console.log(details, "Details");
-
+const Billboard: React.FC<billboardProps> = ({
+  className,
+  details,
+  type = "settings",
+}) => {
   return (
     <div className="p-4 sm:p-6 lg:p-8 rounded-xl overflow-hidden">
       <div
         style={{
-          backgroundImage: `url(${process.env.NEXT_PUBLIC_API_BASE_URL}/img/settings/${details?.billboard})`,
+          backgroundImage: `url(${process.env.NEXT_PUBLIC_API_BASE_URL}/img/${type}/${details?.billboard})`,
         }}
         className={cn(
           "rounded-xl relative aspect-square md:aspect-[2.4/1] overflow-hidden bg-cover",
