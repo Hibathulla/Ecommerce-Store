@@ -10,9 +10,9 @@ const OrderCard: React.FC<{ order: TOrder["order"][0] }> = ({ order }) => {
   return (
     <div
       onClick={() => router.push(`/orders/${order?.id}`)}
-      className="rounded-xl drop-shadow border-2 p-4 h-36 transition translate-y-0 hover:-translate-y-1 active:translate-y-0 cursor-pointer"
+      className="rounded-xl drop-shadow border-2 w-[18rem] p-4 transition translate-y-0 hover:-translate-y-1 active:translate-y-0 cursor-pointer"
     >
-      <div>
+      <div className="w-full flex flex-col">
         <div className="flex items-center gap-3">
           <div className="text-neutral-700 font-semibold text-lg">Status: </div>
           <span className="text-base font-medium text-neutral-500">

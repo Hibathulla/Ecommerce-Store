@@ -10,21 +10,37 @@ export const metadata: Metadata = {
 };
 
 const getSettings = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/settings`,
-    { cache: "no-cache" }
-  );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/settings`,
+      { cache: "no-cache" }
+    );
 
-  return (await res).json();
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return (await res).json();
+  } catch (err) {
+    console.log(err, "err");
+  }
 };
 
 const getProducts = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/product?isFeatured=true`,
-    { cache: "no-store" }
-  );
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/product?isFeatured=true`,
+      { cache: "no-store" }
+    );
 
-  return (await res).json();
+    if (!res.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    return (await res).json();
+  } catch (err) {
+    console.log(err, "err");
+  }
 };
 
 const HomePage = async () => {

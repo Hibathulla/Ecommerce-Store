@@ -10,6 +10,7 @@ import { useDeleteImage, useUploadImage } from "../../services/image";
 import { useUpdateLoggedUser } from "../../services/user";
 import { userType } from "../../types/user";
 import { Icons } from "../../utils/Icons";
+import { useAuth } from "../../hooks/use-auth";
 
 type Inputs = {
   name: string;
@@ -46,6 +47,9 @@ const ProfileForm = ({ initialData }: { initialData: userType }) => {
   const { mutate: deleteImage, isLoading: deleteLoader } = useDeleteImage();
   const [image, setImage] = useState("");
 
+  //store
+  const { setUser } = useAuth();
+
   const imageLoader = uploadLoader || deleteLoader;
 
   const {
@@ -62,8 +66,8 @@ const ProfileForm = ({ initialData }: { initialData: userType }) => {
   const onSubmit: SubmitHandler<Inputs> = (data) =>
     mutate(data, {
       onSuccess: (res) => {
-        console.log(res, "res");
-
+        console.log(res?.data?.user, "res");
+        setUser(res?.data?.user);
         toast.success(res?.message);
       },
     });

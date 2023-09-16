@@ -9,5 +9,7 @@ const getCategory = async (): Promise<CategoryProps> => {
 };
 
 export const useGetAllCategroy = () => {
-  return useQuery(["category"], getCategory);
+  return useQuery(["category"], getCategory, {
+    refetchOnWindowFocus: true,
+  });
 };

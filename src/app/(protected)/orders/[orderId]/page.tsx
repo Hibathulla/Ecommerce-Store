@@ -6,6 +6,7 @@ import CartItem from "../../../../components/cart/CartItem";
 import OrderItem from "../../../../components/orders/OrderItem";
 import { ChevronLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useAuth } from "../../../../hooks/use-auth";
 
 interface Props {
   params: {
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const SingleOrderPage: React.FC<Props> = ({ params }) => {
+  const { user } = useAuth();
   const { data } = useGetSingleOrder(params?.orderId);
   const router = useRouter();
 

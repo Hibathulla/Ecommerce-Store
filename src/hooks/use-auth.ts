@@ -1,10 +1,13 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { userType } from "../types/user";
 
 interface AuthProps {
   loggedIn: boolean;
   token: string | null;
+  user: userType | null;
   setAuth: (token: string) => void;
+  setUser: (user: userType) => void;
   logout: () => void;
 }
 
@@ -13,6 +16,7 @@ export const useAuth = create<AuthProps>()(
     (set) => ({
       loggedIn: false,
       token: null,
+      user: null,
       setAuth: (token: string) =>
         set((state) => {
           localStorage.setItem("access-token", token);
@@ -21,6 +25,10 @@ export const useAuth = create<AuthProps>()(
       logout: () =>
         set((state) => {
           return { loggedIn: false, token: "" };
+        }),
+      setUser: (user: userType) =>
+        set((state) => {
+          return { ...state, user };
         }),
     }),
 

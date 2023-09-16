@@ -1,6 +1,5 @@
 "use client";
 import Footer from "@/components/layouts/Footer";
-import type { Metadata } from "next";
 import Navbar from "@/components/layouts/navbar/Navbar";
 import { Fragment, useEffect, useState } from "react";
 

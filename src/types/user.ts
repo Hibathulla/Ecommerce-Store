@@ -24,3 +24,23 @@ interface User {
   __v: number;
   photo: string;
 }
+
+export interface UserData {
+  status: string;
+  message: string;
+  token: string;
+  data: Data;
+}
+
+interface Data {
+  user: User;
+}
+
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+  role: string;
+  __v: number;
+  photo: string;
+}
