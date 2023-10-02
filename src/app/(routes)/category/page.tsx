@@ -6,10 +6,7 @@ import Billboard from "../../../components/Home/Billboard";
 import { SingleDataCategory } from "../../../types/category";
 import CategorySection from "../../../components/category/CategorySection";
 
-const CategoryPage: React.FC<{
-  params: { categoryId: string };
-  URLSearchParams: any;
-}> = ({ params }) => {
+const CategoryPage = () => {
   const [categoryName, setCategoryName] = useState("");
   const searchParams = useSearchParams();
 
