@@ -23,7 +23,7 @@ const CartSummary = () => {
     const productIds = cart.items?.map((item) => {
       return {
         id: item?.id,
-        category: item?.category?.category,
+        category: item?.category,
         size: item?.size,
         images: item?.images,
         description: item?.description,
