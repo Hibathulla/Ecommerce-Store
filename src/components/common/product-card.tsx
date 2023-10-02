@@ -39,7 +39,7 @@ const ProductCard: React.FC<productProps> = ({ product }) => {
       {/* Description */}
       <div>
         <p className="font-bold text-lg">{product?.name}</p>
-        <p className="text-gray-500 text-sm">{product?.category?.category}</p>
+        <p className="text-gray-500 text-sm">{product?.category}</p>
       </div>
       {discountPrice ? (
         <div className="font-semibold flex items-center gap-3">
