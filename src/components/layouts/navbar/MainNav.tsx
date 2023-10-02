@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/cn";
 import { categoryType } from "@/types/category";
@@ -15,15 +15,20 @@ interface CategoryProps {
 
 const MainNav = () => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const slug = searchParams.get("slug");
 
   const { data } = useGetAllCategroy();
+
+  console.log(pathname, "pathname");
 
   const routes: CategoryProps[] | undefined = data?.data?.category?.map(
     (route: any) => {
       return {
-        href: `/category/${route.id}`,
+        href: `/category?slug=${route.slug}&id=${route?.id}`,
         label: route?.category,
-        active: pathname === `/category/${route?.id}`,
+        active: slug === route?.slug,
       };
     }
   );

@@ -55,7 +55,7 @@ const ProductInfo: React.FC<Props> = ({ product }) => {
       )}
       <div className="flex items-center gap-x-4 mb-5">
         <h3 className="font-semibold text-black">Category:</h3>
-        <div className="font-medium">{product?.category?.category}</div>
+        <div className="font-medium">{product?.category}</div>
       </div>
       <div className="flex items-center gap-x-4">
         <h3 className="font-semibold text-black">Size:</h3>

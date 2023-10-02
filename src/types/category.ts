@@ -14,10 +14,10 @@ export interface CategoryProps {
 export interface SingleCategoryProps {
   status: string;
   result: number;
-  data: SingleData;
+  data: SingleDataCategory;
 }
 
-interface SingleData {
+export interface SingleDataCategory {
   category: Category;
 }
 
@@ -31,5 +31,6 @@ interface Category {
   category: string;
   billboard: string;
   billboardLabel: string;
+  slug: string;
   id: string;
 }

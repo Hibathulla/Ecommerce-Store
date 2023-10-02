@@ -15,7 +15,7 @@ export interface productType {
   discountPrice?: number;
   slug: string;
   images: string[];
-  category: categoryType;
+  category: string;
   size: SizeType[] | string;
   isFeatured?: boolean;
   outOfStock?: boolean;

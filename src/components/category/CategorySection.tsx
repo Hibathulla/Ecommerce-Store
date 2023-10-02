@@ -1,14 +1,15 @@
 "use client";
 import React, { useState } from "react";
+import { useGetProduct } from "../../services/product";
 import MobileFilter from "./MobileFilter";
-import Filter from "./Filter";
-import { productType } from "../../types/product";
 import NoResults from "../common/no-results";
 import ProductCard from "../common/product-card";
-import PriceFilter from "./PriceFilter";
+import Filter from "./Filter";
 
-const CategorySection: React.FC<{ product: productType[] }> = ({ product }) => {
-  const [size, setSize] = useState("");
+const CategorySection: React.FC<{ category: string }> = ({ category }) => {
+  const { data } = useGetProduct({ category });
+  console.log(data, "data");
+
   //   const [filteredProduct, setFilteredProduct] =
   //     useState<productType[]>(product);
 
@@ -18,19 +19,15 @@ const CategorySection: React.FC<{ product: productType[] }> = ({ product }) => {
         {/* Add mobile filters */}
         <MobileFilter />
         <div className="hidden lg:block">
-          {/* <Filter size={size} setSize={setSize} /> */}
+          <Filter />
           {/* <PriceFilter /> */}
         </div>
         <div className="mt-6 lg:col-span-4 lg:mt-0">
-          {product?.length === 0 && <NoResults />}
+          {data?.product?.length === 0 && <NoResults />}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {product?.map((prod) => {
+            {data?.product?.map((prod) => {
               return <ProductCard key={prod?.id} product={prod} />;
             })}
-
-            {/* <ProductCard />
-          <ProductCard />
-          <ProductCard /> */}
           </div>
         </div>
       </div>

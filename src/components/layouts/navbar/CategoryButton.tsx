@@ -53,6 +53,8 @@ const CategoryButton: React.FC<{
           <Menu.Items className="absolute z-10 left-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="p-2.5  space-y-2">
               {routes?.map((route, index) => {
+                console.log(route.href, "href");
+
                 return (
                   <Menu.Item key={index}>
                     {({ active }) => (
