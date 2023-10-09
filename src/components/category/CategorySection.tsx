@@ -5,9 +5,10 @@ import MobileFilter from "./MobileFilter";
 import NoResults from "../common/no-results";
 import ProductCard from "../common/product-card";
 import Filter from "./Filter";
+import ProductListSkeleton from "../../skeletons/ProductList-Skeleton";
 
 const CategorySection: React.FC<{ category: string }> = ({ category }) => {
-  const { data } = useGetProduct({ category });
+  const { data, isLoading: productLoader } = useGetProduct({ category });
   console.log(data, "data");
 
   //   const [filteredProduct, setFilteredProduct] =
@@ -24,11 +25,15 @@ const CategorySection: React.FC<{ category: string }> = ({ category }) => {
         </div>
         <div className="mt-6 lg:col-span-4 lg:mt-0">
           {data?.product?.length === 0 && <NoResults />}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {data?.product?.map((prod) => {
-              return <ProductCard key={prod?.id} product={prod} />;
-            })}
-          </div>
+          {productLoader ? (
+            <ProductListSkeleton className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4" />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              {data?.product?.map((prod) => {
+                return <ProductCard key={prod?.id} product={prod} />;
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>

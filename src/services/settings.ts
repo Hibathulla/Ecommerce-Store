@@ -10,6 +10,16 @@ const getSettingsFunction = async () => {
   return data?.data;
 };
 
+const getAllSettings = async () => {
+  const { data } = await axiosInstance.get(`${routes?.settings}`);
+
+  return data?.data;
+};
+
 export const useSettingClick = () => {
   return useQuery(["settings"], getSettingsFunction);
+};
+
+export const useSettings = () => {
+  return useQuery(["all-settings"], getAllSettings);
 };

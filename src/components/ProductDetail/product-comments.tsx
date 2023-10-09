@@ -5,23 +5,27 @@ import Button from "../ui/Button";
 import usePreviewModal from "../../hooks/use-preview-modal";
 import { useGetProductReview } from "../../services/review";
 import { useParams } from "next/navigation";
+import { useAuth } from "../../hooks/use-auth";
 
 const ProductComments = () => {
   const previewModal = usePreviewModal();
   const { productId } = useParams();
   const { data } = useGetProductReview(productId as string);
+  const { loggedIn } = useAuth();
   console.log(data, "data");
 
   return (
     <div className="mt-10">
       <div className="flex items-center gap-x-6">
         <h2 className="text-2xl text-slate-700 font-semibold">Reviews</h2>
-        <Button
-          onClick={previewModal?.onOpen}
-          className="text-sm !rounded-2xl text-white font-semibold"
-        >
-          Add Review
-        </Button>
+        {loggedIn && (
+          <Button
+            onClick={previewModal?.onOpen}
+            className="text-sm !rounded-2xl text-white font-semibold"
+          >
+            Add Review
+          </Button>
+        )}
       </div>
       <div className="space-y-4 mt-8">
         {data?.data?.review?.length === 0 && (
