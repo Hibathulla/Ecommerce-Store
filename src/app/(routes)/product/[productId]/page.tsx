@@ -1,4 +1,3 @@
-import ProductList from "@/components/Home/ProductList";
 import ProductGallery from "@/components/ProductDetail/product-gallery";
 import ProductInfo from "@/components/ProductDetail/product-info";
 import ProductComments from "../../../../components/ProductDetail/product-comments";
