@@ -10,11 +10,7 @@ import { useGetProduct } from "../../services/product";
 import { useSettings } from "../../services/settings";
 import { productType } from "../../types/product";
 import BillboardSkeleton from "../../skeletons/Billboard-Skeleton";
-
-export const metadata: Metadata = {
-  title: "Store",
-  description: "Store",
-};
+import Head from "next/head";
 
 const getSettings = async () => {
   try {
