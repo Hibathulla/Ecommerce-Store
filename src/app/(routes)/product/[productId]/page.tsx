@@ -48,7 +48,6 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = async ({
       <div className="px-8">
         <ProductComments />
       </div>
-      {/* <ProductList title="Related products" /> */}
     </div>
   );
 };
