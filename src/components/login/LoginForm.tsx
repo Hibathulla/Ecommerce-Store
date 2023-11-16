@@ -69,12 +69,12 @@ const LoginForm = () => {
         )}
       </div>
 
-      <div className="w-full flex items-center justify-between mt-4">
+      {/* <div className="w-full flex items-center justify-between mt-4">
         <div className="w-full flex">
           <input type="checkbox" className="w-4 h-4 mr-2" />
           <p className="text-sm font-medium">Remember Me</p>
         </div>
-      </div>
+      </div> */}
 
       {isError && (
         <div className="py-2 px-2 mt-5 bg-red-500 text-white font-medium text-lg rounded-lg">
