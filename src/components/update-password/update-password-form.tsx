@@ -38,11 +38,16 @@ const UpdatePasswordForm = () => {
     watch,
     setValue,
     getValues,
+    reset,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(passwordFormSchema),
   });
-  const onSubmit: SubmitHandler<Inputs> = (data) => mutate(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    mutate(data, {
+      onSuccess: () => reset(),
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col">

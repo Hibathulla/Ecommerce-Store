@@ -7,7 +7,7 @@ interface deleteProps {
   image: string;
 }
 
-const postImageUpload = (val: FormData) => {
+const postImageUpload = (val: { type: string; file: any }) => {
   return axiosInstance.post(routes.singleUpload, val);
 };
 

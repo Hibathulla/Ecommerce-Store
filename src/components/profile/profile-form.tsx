@@ -11,6 +11,7 @@ import { useUpdateLoggedUser } from "../../services/user";
 import { userType } from "../../types/user";
 import { Icons } from "../../utils/Icons";
 import { useAuth } from "../../hooks/use-auth";
+import { transformFile } from "../../utils/transformFile";
 
 type Inputs = {
   name: string;
@@ -72,24 +73,30 @@ const ProfileForm = ({ initialData }: { initialData: userType }) => {
       },
     });
 
-  const onChangeHandler = (
+  const onChangeHandler = async (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const file = (e.target as HTMLInputElement).files?.[0];
+    let formData = new FormData();
 
-    const formData = new FormData();
-    formData.append("image", file!);
-    formData.set("type", "users");
+    const fileValue = (e.target as HTMLInputElement).files?.[0];
 
-    uploadImage(formData, {
-      onSuccess: (res) => {
-        toast.success(res.data?.message);
-        console.log(res, "res");
-        setImage(URL.createObjectURL(file!));
-        setValue("photo", res?.data?.data);
-        // field.onChange(res?.data?.data);
-      },
-    });
+    const imgValue = await transformFile(fileValue as File);
+    if (imgValue) {
+      const data = {
+        file: imgValue,
+        type: "users",
+      };
+
+      uploadImage(data, {
+        onSuccess: (res) => {
+          toast.success(res.data?.message);
+          console.log(res, "res");
+          setImage(URL.createObjectURL(fileValue!));
+          setValue("photo", res?.data?.data);
+          // field.onChange(res?.data?.data);
+        },
+      });
+    }
   };
 
   const onRemove = (e: React.SyntheticEvent) => {
