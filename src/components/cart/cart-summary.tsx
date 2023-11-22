@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 const CartSummary = () => {
   const cart = useCart();
+  cart.coupon = cart.coupon;
   // const {} = useGetS
   const { mutate: createOrder } = useHandlePayment();
   const { mutate: verifyOrder } = useVerifyPayment();
@@ -107,7 +108,9 @@ const CartSummary = () => {
                 Coupon Discount
               </div>
               <div className="font-bold text-base">
-                -{formatter.format(cart.coupon)}
+                {cart.discountType === "flat"
+                  ? `-${formatter.format(cart.coupon)}`
+                  : `-${cart.coupon}%`}
               </div>
             </div>
           )}

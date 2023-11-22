@@ -10,6 +10,7 @@ interface CartStore {
   addItem: (data: productType) => void;
   totalPrice: number;
   coupon: number;
+  discountType: string;
   setTotalPrice: (price: number, discountType: string) => void;
   removeItem: (id: string) => void;
   removeAll: () => void;
@@ -21,6 +22,7 @@ const useCart = create(
       items: [],
       totalPrice: 0,
       coupon: 0,
+      discountType: "",
       addItem: (data: productType) => {
         const currentItems = get().items;
         const currentPrice = get().totalPrice;
@@ -61,7 +63,12 @@ const useCart = create(
           newPrice = currentPrice - discount;
         }
 
-        set({ items: [...get().items], totalPrice: newPrice!, coupon: price });
+        set({
+          items: [...get().items],
+          totalPrice: newPrice!,
+          coupon: price,
+          discountType: discountPrice,
+        });
       },
       removeAll: () => set({ items: [], totalPrice: 0, coupon: 0 }),
     }),
